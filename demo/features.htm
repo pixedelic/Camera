@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- Camera is a Pixedelic free jQuery slideshow | Manuel Masia (designer and developer) --> 
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" > 
+    <title>Camera | a free jQuery slideshow by Pixedelic</title> 
+    <meta name="description" content="Camera a free jQuery slideshow with many effects, transitions, adaptive layout, easy to customize, using canvas and mobile ready"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //		Styles
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////--> 
+    <link rel='stylesheet' id='camera-css'  href='../css/camera.css' type='text/css' media='all'> 
+    <style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		a {
+			color: #09f;
+		}
+		a:hover {
+			text-decoration: none;
+		}
+		#back_to_camera {
+			clear: both;
+			display: block;
+			height: 80px;
+			line-height: 40px;
+			padding: 20px;
+		}
+		.fluid_container {
+			margin: 0 auto;
+			max-width: 1000px;
+			width: 90%;
+		}
+	</style>
+
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //		Scripts
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////////////////--> 
+    
+    <script type='text/javascript' src='../scripts/jquery.min.js'></script>
+    <script type='text/javascript' src='../scripts/jquery.mobile.customized.min.js'></script>
+    <script type='text/javascript' src='../scripts/jquery.easing.1.3.js'></script> 
+    <script type='text/javascript' src='../scripts/camera.min.js'></script> 
+    
+    <script>
+		jQuery(function(){
+			
+			jQuery('#camera_wrap_3').camera({
+				height: '56%',
+				pagination: false,
+				thumbnails: true,
+				imagePath: '../images/'
+			});
+
+		});
+	</script>
+ 
+</head>
+<body>
+	<div id="back_to_camera">
+    	<a href="http://www.pixedelic.com/plugins/camera/">&larr; Back to the Camera project</a>
+    </div><!-- #back_to_camera -->
+    
+	<div class="fluid_container">
+    	<p>Videos, HTML elements and data- attributes</p>
+        <div class="camera_wrap camera_emboss" id="camera_wrap_3">
+            <div data-thumb="../images/slides/thumbs/big_bunny_fake.jpg" data-src="../images/slides/big_bunny_fake.jpg">
+            	<iframe src="http://player.vimeo.com/video/2203727" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            </div>
+            <div data-thumb="../images/slides/thumbs/leaf.jpg" data-src="../images/slides/leaf.jpg">
+                <div style="position:absolute; top:5%; left:5%; background:#000; color:#fff; padding:5px; width:25%" class="fadeIn camera_effected">This is an HTML element included in the transition effect</div>
+            </div>
+            <div data-thumb="../images/slides/thumbs/road.jpg" data-src="../images/slides/road.jpg" data-time="1500" data-trasPeriod="4000">
+                <div class="camera_caption fadeFromBottom">
+                    Changed the time and the transition time of this slide
+                </div>
+            </div>
+        </div><!-- #camera_wrap_3 -->
+
+    </div><!-- .fluid_container -->
+    
+    <div style="clear:both; display:block; height:100px"></div>
+</body> 
+</html>
