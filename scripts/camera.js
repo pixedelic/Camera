@@ -1,4 +1,4 @@
-// Camera slideshow v1.0.2 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.0.3 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 ;(function($){$.fn.camera = function(opts, callback) {
 	
@@ -46,6 +46,8 @@
 				
 		minHeight			: '200px',	//you can also leave it blank
 		
+		navigation			: true,	//true or false, to display or not the navigation buttons
+		
 		navigationHover		: true,	//if true the navigation button (prev, next and play/stop buttons) will be visible on hover state only, if false they will be visible always
 		
 		mobileNavHover		: true,	//same as above, but only for mobile devices
@@ -55,6 +57,8 @@
 		overlayer			: true,	//a layer on the images to prevent the users grab them simply by clicking the right button of their mouse (.camera_overlayer)
 		
 		pagination			: true,
+		
+		playPause			: true,	//true or false, to display or not the play/pause buttons
 		
 		pauseOnClick		: true,	//true, false. It stops the slideshow when you click the sliders.
 		
@@ -139,7 +143,6 @@
 			'<div class="camera_pie"></div>'
 			)
 	} else if (loader == 'bar') {
-		console.log('ok');
 		fakeHover.append(
 			'<div class="camera_bar"></div>'
 			)
@@ -148,13 +151,20 @@
 			'<div class="camera_bar" style="display:none"></div>'
 			)
 	}
+	
+	if(opts.playPause==true){
 		fakeHover.append(
         '<div class="camera_commands"></div>'
-		).append(
-        '<div class="camera_prev"><span></span></div>'
-		).append(
-        '<div class="camera_next"><span></span></div>'
-		);
+		)
+	}
+		
+	if(opts.navigation==true){
+		fakeHover.append(
+			'<div class="camera_prev"><span></span></div>'
+			).append(
+			'<div class="camera_next"><span></span></div>'
+			);
+	}
 		
 	if(opts.thumbnails==true){
 		wrap.append(
@@ -401,7 +411,7 @@
 						portrait = opts.portrait;
 					}
 										
-					if(portrait==false){
+					if(portrait==false||portrait=='false'){
 						if((wT/hT)<(w/h)) {
 							var r = w / wT;
 							var d = (Math.abs(h - (hT*r)))*0.5;
@@ -439,6 +449,7 @@
 								'margin-left' : 0,
 								'margin-top' : mTop,
 								'position' : 'absolute',
+								'visibility' : 'visible',
 								'width' : w
 							});
 						}
@@ -479,6 +490,7 @@
 								'margin-left' : mLeft,
 								'margin-top' : 0,
 								'position' : 'absolute',
+								'visibility' : 'visible',
 								'width' : wT*r
 							});
 						}
@@ -520,6 +532,7 @@
 								'margin-left' : mLeft,
 								'margin-top' : 0,
 								'position' : 'absolute',
+								'visibility' : 'visible',
 								'width' : wT*r
 							});
 						}
@@ -560,6 +573,7 @@
 								'margin-left' : 0,
 								'margin-top' : mTop,
 								'position' : 'absolute',
+								'visibility' : 'visible',
 								'width' : w
 							});
 						}
@@ -650,7 +664,6 @@
 					t.remove();
 					$(imgFake).bind('click',function(){
 						if($(this).css('position')=='absolute') {
-							console.log(1);
 							$(this).remove();
 							if(cloneSrc.indexOf('vimeo') != -1 || cloneSrc.indexOf('youtube') != -1) {
 								if(cloneSrc.indexOf('?') != -1){
@@ -668,7 +681,6 @@
 							clone.attr('src',cloneSrc+autoplay);
 							videoPresent = true;
 						} else {
-							console.log(2);
 							$(this).css({position:'absolute',top:0,left:0,zIndex:10}).after(clone);
 						}
 					});
@@ -1066,7 +1078,7 @@
 			var imgLoaded = new Image();
 			imgLoaded.src = imgUrl;
 			slide.css('visibility','hidden');
-			slide.prepend($(imgLoaded).attr('class','imgLoaded'));
+			slide.prepend($(imgLoaded).attr('class','imgLoaded').css('visibility','hidden'));
 			var wT, hT;
 			if (!$(imgLoaded).get(0).complete || wT == '0' || hT == '0' || typeof wT === 'undefined' || wT === false || typeof hT === 'undefined' || hT === false) {
 				$('.camera_loader',wrap).delay(500).fadeIn(400);
@@ -1192,6 +1204,8 @@
 			if(!$(elem).hasClass('camerastarted')){
 				fx = 'simpleFade';
 				slideOn = 'next';
+				easing = '';
+				transPeriod = 400;
 				$(elem).addClass('camerastarted')
 			}
 	
@@ -1765,7 +1779,7 @@
 						
 						thumbnailPos();
 						
-						$('.moveFromLeft, .moveFomRight, .moveFromTop, .moveFromBottom, .fadeIn, .fadeFromLeft, .fadeFromRight, .fadeFromTop, .fadeFromBottom',fakeHover).each(function(){
+						$('.moveFromLeft, .moveFromRight, .moveFromTop, .moveFromBottom, .fadeIn, .fadeFromLeft, .fadeFromRight, .fadeFromTop, .fadeFromBottom',fakeHover).each(function(){
 							$(this).css('visibility','hidden');
 						});
 		
@@ -1780,7 +1794,7 @@
 
 						
 						var lMoveIn = selector.eq(slideI).find('.fadeIn').length;
-						var lMoveInContent = $('.cameraContent',fakeHover).eq(slideI).find('.moveFromLeft, .moveFomRight, .moveFromTop, .moveFromBottom, .fadeIn, .fadeFromLeft, .fadeFromRight, .fadeFromTop, .fadeFromBottom').length;
+						var lMoveInContent = $('.cameraContent',fakeHover).eq(slideI).find('.moveFromLeft, .moveFromRight, .moveFromTop, .moveFromBottom, .fadeIn, .fadeFromLeft, .fadeFromRight, .fadeFromTop, .fadeFromBottom').length;
 						
 						if (lMoveIn!=0){
 							$('.cameraSlide.cameracurrent .fadeIn',fakeHover).each(function(){
@@ -2243,7 +2257,7 @@
 ;(function($){$.fn.cameraResume = function() {
 	var wrap = $(this);
 	var elem = $('.camera_src',wrap);
-	if(autoAdv!=false){
+	if(typeof autoAdv === 'undefined' || autoAdv!==true){
 		elem.removeClass('paused');
 	}
 }
