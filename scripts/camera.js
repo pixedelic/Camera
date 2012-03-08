@@ -1,4 +1,4 @@
-// Camera slideshow v1.0.3 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.0.4 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 ;(function($){$.fn.camera = function(opts, callback) {
 	
@@ -276,8 +276,9 @@
 		$('.cameraContents',content).append('<div class="cameraContent" />');
 	}
 	$('.camera_caption',wrap).each(function(){
-		var ind = $(this).parent().index();
-		$(this).appendTo('.cameraContent:eq('+ind+')',wrap);
+		var ind = $(this).parent().index(),
+			cont = wrap.find('.cameraContent').eq(ind);
+		$(this).appendTo(cont);
 	});
 	
 	target.append('<div class="cameraCont" />');
