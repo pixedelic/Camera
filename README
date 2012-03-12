@@ -1,0 +1,17 @@
+#Camera
+
+Camera is a responsive slideshow plugin with touch support for creating content sliders with virtually any HTML element (images, text, videos, etc.). 
+
+#Dependencies 
+
+Dependencies include the following (included in this repository): 
+
+*jQuery 1.4+
+*[jQuery Easing](http://gsgd.co.uk/sandbox/jquery/easing/)
+*[jQuery Mobile](http://jquerymobile.com/) 
+
+#Documentation and Support 
+
+Usage documentation can be found here: http://www.pixedelic.com/plugins/camera/
+
+For additional support, use the Google Group for Camera: http://groups.google.com/group/camera-slideshow 
