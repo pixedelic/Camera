@@ -1789,7 +1789,9 @@
 						selector.eq(slideI).show().css('z-index','999').addClass('cameracurrent');
 						selector.eq(vis).css('z-index','1').removeClass('cameracurrent');
 						$('.cameraContent',fakeHover).eq(slideI).addClass('cameracurrent');
-						$('.cameraContent',fakeHover).eq(vis).removeClass('cameracurrent');
+						if (vis >= 0) {
+							$('.cameraContent',fakeHover).eq(vis).removeClass('cameracurrent');
+						}
 						
 						if($('> div', elem).eq(slideI).attr('data-video')!='hide' && $('.cameraContent.cameracurrent .imgFake',fakeHover).length ){
 							$('.cameraContent.cameracurrent .imgFake',fakeHover).click();
