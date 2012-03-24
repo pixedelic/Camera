@@ -1,4 +1,4 @@
-// Camera slideshow v1.0.5 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.0.6 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
@@ -275,6 +275,18 @@
 	for (loopMove=0;loopMove<amountSlide;loopMove++)
 	{
 		$('.cameraContents',content).append('<div class="cameraContent" />');
+		if(allLinks[loopMove]!=''){
+			//only for Wordpress plugin
+			var dataBox;
+			if($('> div ',elem).eq(loopMove).attr('data-box').length) {
+				dataBox = 'data-box="'+$('> div ',elem).eq(loopMove).attr('data-box')+'"';
+			} else {
+				dataBox = '';
+			}
+			//
+			$('.camera_target_content .cameraContent:eq('+loopMove+')',wrap).append('<a class="camera_link" href="'+allLinks[loopMove]+'" '+dataBox+' target="'+allTargets[loopMove]+'"></a>');
+		}
+
 	}
 	$('.camera_caption',wrap).each(function(){
 		var ind = $(this).parent().index(),
@@ -1069,9 +1081,6 @@
 		$('.camera_caption',fakeHover).show();
 		
 		$('.camerarelative',slide).append($('> div ',elem).eq(slideI).find('> div.camera_effected'));
-		if(allLinks[slideI]!=''){
-			$('.camera_target_content .cameraContent:eq('+slideI+')',wrap).append('<a class="camera_link" href="'+allLinks[slideI]+'" target="'+allTargets[slideI]+'"></a>');
-		}
 
 		$('.camera_target_content .cameraContent:eq('+slideI+')',wrap).append($('> div ',elem).eq(slideI).find('> div'));
 		
@@ -1789,7 +1798,9 @@
 						selector.eq(slideI).show().css('z-index','999').addClass('cameracurrent');
 						selector.eq(vis).css('z-index','1').removeClass('cameracurrent');
 						$('.cameraContent',fakeHover).eq(slideI).addClass('cameracurrent');
-						$('.cameraContent',fakeHover).eq(vis).removeClass('cameracurrent');
+						if (vis >= 0) {
+							$('.cameraContent',fakeHover).eq(vis).removeClass('cameracurrent');
+						}
 						
 						if($('> div', elem).eq(slideI).attr('data-video')!='hide' && $('.cameraContent.cameracurrent .imgFake',fakeHover).length ){
 							$('.cameraContent.cameracurrent .imgFake',fakeHover).click();
