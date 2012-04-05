@@ -1096,7 +1096,9 @@
 				imgLoaded.onload = function() {
 					wT = imgLoaded.naturalWidth;
 					hT = imgLoaded.naturalHeight;
-					$(imgLoaded).attr('width',wT).attr('height',hT).attr('data-alignment',allAlign[slideI]).attr('data-portrait',allPor[slideI]);
+					$(imgLoaded).attr('data-alignment',allAlign[slideI]).attr('data-portrait',allPor[slideI]);
+					$(imgLoaded).attr('width',wT);
+					$(imgLoaded).attr('height',hT);
 					target.find('.cameraSlide_'+slideI).hide().css('visibility','visible');
 					resizeImage();
 					nextSlide(slideI+1);
