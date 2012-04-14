@@ -1,4 +1,4 @@
-// Camera slideshow v1.0.9b - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.0.9c - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
@@ -4254,7 +4254,7 @@
 
 				
 				if(fx=='scrollLeft' || fx=='scrollRight' || fx=='scrollTop' || fx=='scrollBottom' || fx=='scrollHorz'){
-					opts.onStartTransition07.call(this);
+					opts.onStartTransition.call(this);
 					easedTime = 0;
 					tApp.delay((((transPeriod+difference)/blocks)*delay[index]*couples)*0.5).css({
 							'display' : 'block',
