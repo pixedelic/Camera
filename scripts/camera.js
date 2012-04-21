@@ -1,4 +1,4 @@
-// Camera slideshow v1.0.10 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.1.0 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
@@ -707,9 +707,9 @@
 		if(opts.hover==true){
 			if(!isMobile()){
 				fakeHover.hover(function(){
-					elem.addClass('paused');
+					elem.addClass('hovered');
 				},function(){
-					elem.removeClass('paused');
+					elem.removeClass('hovered');
 				});
 			}
 		}
@@ -1012,7 +1012,7 @@
 		}
 
 		if($(commands).length) {
-			$(commands).append('<div class="camera_play">&nbsp;</div>').append('<div class="camera_stop">&nbsp;</div>');
+			$(commands).append('<div class="camera_play"></div>').append('<div class="camera_stop"></div>');
 			if(autoAdv==true){
 				$('.camera_play',camera_thumbs_wrap).hide();
 				$('.camera_stop',camera_thumbs_wrap).show();
@@ -1090,7 +1090,7 @@
 		if(!$('.imgLoaded',slide).length){
 			var imgUrl = allImg[slideI];
 			var imgLoaded = new Image();
-			imgLoaded.src = imgUrl;
+			imgLoaded.src = imgUrl +"?"+ new Date().getTime();
 			slide.css('visibility','hidden');
 			slide.prepend($(imgLoaded).attr('class','imgLoaded').css('visibility','hidden'));
 			var wT, hT;
@@ -1921,12 +1921,12 @@
 										clearInterval(u);
 									}
 									if (loader != 'pie') {
-										if(rad<=1.002 && !elem.hasClass('stopped') && !elem.hasClass('paused')){
+										if(rad<=1.002 && !elem.hasClass('stopped') && !elem.hasClass('paused') && !elem.hasClass('hovered')){
 											rad = (rad+radSum);
-										} else if (rad<=1 && (elem.hasClass('stopped') || elem.hasClass('paused'))){
+										} else if (rad<=1 && (elem.hasClass('stopped') || elem.hasClass('paused') || elem.hasClass('stopped') || elem.hasClass('hovered'))){
 											rad = rad;
 										} else {
-											if(!elem.hasClass('stopped') && !elem.hasClass('paused')) {
+											if(!elem.hasClass('stopped') && !elem.hasClass('paused') && !elem.hasClass('hovered')) {
 												clearInterval(u);
 												imgFake();
 												$('#'+pieID).animate({opacity:0},200,function(){
@@ -1970,12 +1970,12 @@
 										ctx.stroke();
 										ctx.closePath();
 												
-										if(rad<=1.002 && !elem.hasClass('stopped') && !elem.hasClass('paused')){
+										if(rad<=1.002 && !elem.hasClass('stopped') && !elem.hasClass('paused') && !elem.hasClass('hovered')){
 											rad = (rad+radSum);
-										} else if (rad<=1 && (elem.hasClass('stopped') || elem.hasClass('paused'))){
+										} else if (rad<=1 && (elem.hasClass('stopped') || elem.hasClass('paused') || elem.hasClass('hovered'))){
 											rad = rad;
 										} else {
-											if(!elem.hasClass('stopped') && !elem.hasClass('paused')) {
+											if(!elem.hasClass('stopped') && !elem.hasClass('paused') && !elem.hasClass('hovered')) {
 												clearInterval(u);
 												imgFake();
 												$('#'+pieID+', .camera_canvas_wrap',camera_thumbs_wrap).animate({opacity:0},200,function(){
