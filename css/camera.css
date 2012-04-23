@@ -96,6 +96,7 @@
 	z-index: 2;
 }
 .camera_target_content .camera_link {
+    background: url(../images/blank.gif);
 	display: block;
 	height: 100%;
 	text-decoration: none;
