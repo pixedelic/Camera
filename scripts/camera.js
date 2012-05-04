@@ -1,4 +1,4 @@
-// Camera slideshow v1.1.2 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.2.0 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
@@ -1080,6 +1080,7 @@
 				
 				
 		var slide = $('.cameraSlide:eq('+slideI+')',target);
+		var slideNext = $('.cameraSlide:eq('+(slideI+1)+')',target);
 		$('.cameraContent',fakeHover).fadeOut(600);
 		$('.camera_caption',fakeHover).show();
 		
@@ -1106,20 +1107,22 @@
 					resizeImage();
 					nextSlide(slideI+1);
 				};
-			} else {
-				wT = imgLoaded.naturalWidth;
-				hT = imgLoaded.naturalHeight;
-				$(imgLoaded).attr('width',wT);
-				$(imgLoaded).attr('height',hT);
-				$(imgLoaded).attr('data-alignment',allAlign[slideI]);
-				$(imgLoaded).attr('data-portrait',allPor[slideI]);
-				target.find('.cameraSlide_'+slideI).hide().css('visibility','visible');
-				resizeImage();
-				imgLoaded.onload = function() {
-					nextSlide(slideI+1);
-				}
 			}
 		} else {
+			if( allImg.length > (slideI+1) && !$('.imgLoaded',slideNext).length ){
+				var imgUrl2 = allImg[(slideI+1)];
+				var imgLoaded2 = new Image();
+				imgLoaded2.src = imgUrl2 +"?"+ new Date().getTime();
+				slideNext.prepend($(imgLoaded2).attr('class','imgLoaded').css('visibility','hidden'));
+				imgLoaded2.onload = function() {
+					wT = imgLoaded2.naturalWidth;
+					hT = imgLoaded2.naturalHeight;
+					$(imgLoaded2).attr('data-alignment',allAlign[slideI+1]).attr('data-portrait',allPor[slideI+1]);
+					$(imgLoaded2).attr('width',wT);
+					$(imgLoaded2).attr('height',hT);
+					resizeImage();
+				};
+			}
 			opts.onLoaded.call(this);
 			if($('.camera_loader',wrap).is(':visible')){
 				$('.camera_loader',wrap).fadeOut(400);
