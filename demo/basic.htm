@@ -12,6 +12,7 @@
     //
     ///////////////////////////////////////////////////////////////////////////////////////////////////--> 
     <link rel='stylesheet' id='camera-css'  href='../css/camera.css' type='text/css' media='all'> 
+    <link href='../css/font-awesome.css' type='text/css' media='all' rel='stylesheet' type='text/css'>
     <style>
 		body {
 			margin: 0;
@@ -36,6 +37,7 @@
 			width: 90%;
 		}
 	</style>
+    
 
     <!--///////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -46,16 +48,18 @@
     <script type='text/javascript' src='../scripts/jquery.min.js'></script>
     <script type='text/javascript' src='../scripts/jquery.mobile.customized.min.js'></script>
     <script type='text/javascript' src='../scripts/jquery.easing.1.3.js'></script> 
-    <script type='text/javascript' src='../scripts/camera.min.js'></script> 
+    <script type='text/javascript' src='../scripts/camera.js'></script> 
     
     <script>
 		jQuery(function(){
 			
 			jQuery('#camera_wrap_1').camera({
+				buttonColor: '#FFBF00',
 				thumbnails: true
 			});
 
 			jQuery('#camera_wrap_2').camera({
+				buttonColor: '#000000',
 				height: '400px',
 				loader: 'bar',
 				pagination: false,
@@ -72,7 +76,7 @@
     
 	<div class="fluid_container">
     	<p>Pagination circles with the height relative to the width</p>
-        <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+        <div class="camera_wrap" id="camera_wrap_1">
             <div data-thumb="../images/slides/thumbs/bridge.jpg" data-src="../images/slides/bridge.jpg">
                 <div class="camera_caption fadeFromBottom">
                     Camera is a responsive/adaptive slideshow. <em>Try to resize the browser window</em>
@@ -106,7 +110,7 @@
         </div><!-- #camera_wrap_1 -->
 
     	<p>Thumbnails with fixed height</p>
-        <div class="camera_wrap camera_magenta_skin" id="camera_wrap_2">
+        <div class="camera_wrap" id="camera_wrap_2">
             <div data-thumb="../images/slides/thumbs/bridge.jpg" data-src="../images/slides/bridge.jpg">
                 <div class="camera_caption fadeFromBottom">
                     Camera is a responsive/adaptive slideshow. <em>Try to resize the browser window</em>
