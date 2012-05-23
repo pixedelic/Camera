@@ -1,9 +1,11 @@
 // Camera slideshow v1.2.0 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
 	
 	var defaults = {
+		buttonColor			: '#000000', //Color of Navigation Button icons
 		alignment			: 'center', //topLeft, topCenter, topRight, centerLeft, center, centerRight, bottomLeft, bottomCenter, bottomRight
 		
 		autoAdvance			: true,	//true, false
@@ -160,11 +162,14 @@
 	}
 		
 	if(opts.navigation==true){
+		
 		fakeHover.append(
-			'<div class="camera_prev"><span></span></div>'
+			'<div class="camera_prev"><span><button class="btn btn-large"><i class="icon-chevron-left icon-large"></i></button></span></div>'
 			).append(
-			'<div class="camera_next"><span></span></div>'
+			'<div class="camera_next"><span><button class="btn btn-large"><i class="icon-chevron-right icon-large"></i></button></span></div>'
 			);
+			$('.camera_next > span > button, .camera_prev > span > button').css({'color':opts.buttonColor});
+			
 	}
 		
 	if(opts.thumbnails==true){
@@ -896,7 +901,7 @@
 			$(pagination).append('<ul class="camera_pag_ul" />');
 			var li;
 			for (li = 0; li < amountSlide; li++){
-				$('.camera_pag_ul',wrap).append('<li class="pag_nav_'+li+'" style="position:relative; z-index:1002"><span><span>'+li+'</span></span></li>');
+				$('.camera_pag_ul',wrap).append('<li class="pag_nav_'+li+'" style="position:relative; z-index:1002"><span><span>'+li+'</span></span></li>');	
 			}
 			$('.camera_pag_ul li',wrap).hover(function(){
 				$(this).addClass('camera_hover');
@@ -924,7 +929,8 @@
 			var thumbUrl;
 			if(!$(pagination).length) {
 				$(thumbs).append('<div />');
-				$(thumbs).before('<div class="camera_prevThumbs hideNav"><div></div></div>').before('<div class="camera_nextThumbs hideNav"><div></div></div>');
+				$(thumbs).before('<div class="camera_prevThumbs hideNav"><div><i class="icon-chevron-left icon-large"></i></div></div>').before('<div class="camera_nextThumbs hideNav"><div><i class="icon-chevron-right icon-large"></i></div></div>');
+				$('.camera_nextThumbs div, .camera_prevThumbs div').css({'color':opts.buttonColor});
 				$('> div',thumbs).append('<ul />');
 				$.each(allThumbs, function(i, val) {
 					if($('> div', elem).eq(i).attr('data-thumb')!='') {
@@ -1012,7 +1018,8 @@
 		}
 
 		if($(commands).length) {
-			$(commands).append('<div class="camera_play"></div>').append('<div class="camera_stop"></div>');
+			$(commands).append('<div class="camera_play"><button class="btn btn-large"><i class="icon-play icon-large"></i></button></div>').append('<div class="camera_stop"><button class="btn btn-large"><i class="icon-pause icon-large"></i></button></div>');
+			$('.camera_commands > .camera_play > button, .camera_commands > .camera_stop > button').css({'color':opts.buttonColor});
 			if(autoAdv==true){
 				$('.camera_play',camera_thumbs_wrap).hide();
 				$('.camera_stop',camera_thumbs_wrap).show();
@@ -1769,9 +1776,9 @@
 				
 				
 				if($(pagination).length){
-					$('.camera_pag li',wrap).removeClass('cameracurrent');
-					$('.camera_pag li',wrap).eq(slideI).addClass('cameracurrent');
-				}
+					$('.camera_pag li',wrap).css({'background':'#b7b7b7'}).removeClass('cameracurrent');
+					$('.camera_pag li',wrap).eq(slideI).css({'background':opts.buttonColor}).addClass('cameracurrent');
+	}
 						
 				if($(thumbs).length){
 					$('li', thumbs).removeClass('cameracurrent');
