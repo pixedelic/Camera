@@ -5,6 +5,7 @@
 ;(function($){$.fn.camera = function(opts, callback) {
 	
 	var defaults = {
+		buttonColor			: '#000000', //Color of Navigation Button icons
 		alignment			: 'center', //topLeft, topCenter, topRight, centerLeft, center, centerRight, bottomLeft, bottomCenter, bottomRight
 		
 		autoAdvance			: true,	//true, false
