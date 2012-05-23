@@ -5,7 +5,6 @@
 ;(function($){$.fn.camera = function(opts, callback) {
 	
 	var defaults = {
-		buttonColor			: '#000000', //Color of Navigation Button icons
 		alignment			: 'center', //topLeft, topCenter, topRight, centerLeft, center, centerRight, bottomLeft, bottomCenter, bottomRight
 		
 		autoAdvance			: true,	//true, false
@@ -901,7 +900,7 @@
 			$(pagination).append('<ul class="camera_pag_ul" />');
 			var li;
 			for (li = 0; li < amountSlide; li++){
-				$('.camera_pag_ul',wrap).append('<li class="pag_nav_'+li+'" style="position:relative; z-index:1002"><span><span>'+li+'</span></span></li>');
+				$('.camera_pag_ul',wrap).append('<li class="pag_nav_'+li+'" style="position:relative; z-index:1002"><span><span>'+li+'</span></span></li>');	
 			}
 			$('.camera_pag_ul li',wrap).hover(function(){
 				$(this).addClass('camera_hover');
@@ -1776,9 +1775,9 @@
 				
 				
 				if($(pagination).length){
-					$('.camera_pag li',wrap).removeClass('cameracurrent');
-					$('.camera_pag li',wrap).eq(slideI).addClass('cameracurrent');
-				}
+					$('.camera_pag li',wrap).css({'background':'#b7b7b7'}).removeClass('cameracurrent');
+					$('.camera_pag li',wrap).eq(slideI).css({'background':opts.buttonColor}).addClass('cameracurrent');
+	}
 						
 				if($(thumbs).length){
 					$('li', thumbs).removeClass('cameracurrent');
