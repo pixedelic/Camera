@@ -1,4 +1,4 @@
-// Camera slideshow v1.2.0 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.3.0 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
@@ -1077,10 +1077,11 @@
 		} else {
 			var slideI = vis+1;
 		}
+		
 				
 				
 		var slide = $('.cameraSlide:eq('+slideI+')',target);
-		var slideNext = $('.cameraSlide:eq('+(slideI+1)+')',target);
+		var slideNext = $('.cameraSlide:eq('+(slideI+1)+')',target).addClass('cameranext');
 		$('.cameraContent',fakeHover).fadeOut(600);
 		$('.camera_caption',fakeHover).show();
 		
@@ -1791,7 +1792,6 @@
 				var easedTime = parseFloat(transPeriod)+parseFloat(difference);
 				
 				function cameraeased() {
-					opts.onEndTransition.call(this)
 
 					$(this).addClass('cameraeased');
 					if($('.cameraeased',target).length>=0){
@@ -1805,12 +1805,14 @@
 							$(this).css('visibility','hidden');
 						});
 		
-						selector.eq(slideI).show().css('z-index','999').addClass('cameracurrent');
+						selector.eq(slideI).show().css('z-index','999').removeClass('cameranext').addClass('cameracurrent');
 						selector.eq(vis).css('z-index','1').removeClass('cameracurrent');
 						$('.cameraContent',fakeHover).eq(slideI).addClass('cameracurrent');
 						if (vis >= 0) {
 							$('.cameraContent',fakeHover).eq(vis).removeClass('cameracurrent');
 						}
+						
+						opts.onEndTransition.call(this);
 						
 						if($('> div', elem).eq(slideI).attr('data-video')!='hide' && $('.cameraContent.cameracurrent .imgFake',fakeHover).length ){
 							$('.cameraContent.cameracurrent .imgFake',fakeHover).click();
