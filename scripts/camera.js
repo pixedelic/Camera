@@ -1,4 +1,4 @@
-// Camera slideshow v1.3.1 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.3.2 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
@@ -335,7 +335,7 @@
 		});
 	}
 	
-	$(window).bind('load resize',function(){
+	$(window).bind('load resize pageshow',function(){
 		thumbnailPos();
 		thumbnailVisible();
 	});
@@ -352,7 +352,7 @@
 	
 	var setPause;
 		
-	$(window).bind('resize',function(){
+	$(window).bind('resize pageshow',function(){
 		if(started == true) {
 			resizeImage();
 		}
@@ -696,6 +696,7 @@
 							videoPresent = true;
 						} else {
 							$(this).css({position:'absolute',top:0,left:0,zIndex:10}).after(clone);
+							clone.css({position:'absolute',top:0,left:0,zIndex:9});
 						}
 					});
 				});
@@ -959,7 +960,7 @@
 			if($(thumbs).length && !$(pagination).length) {
 				var wTh = $(thumbs).outerWidth(),
 					owTh = $('ul > li',thumbs).outerWidth(),
-					pos = $('li.cameracurrent', thumbs).position(),
+					pos = $('li.cameracurrent', thumbs).length ? $('li.cameracurrent', thumbs).position() : '',
 					ulW = ($('ul > li', thumbs).length * $('ul > li', thumbs).outerWidth()),
 					offUl = $('ul', thumbs).offset().left,
 					offDiv = $('> div', thumbs).offset().left,
@@ -988,10 +989,8 @@
 				}
 				firstPos = false;
 				
-					$('.camera_prevThumbs',camera_thumbs_wrap).css('visibility','visible');
-					$('.camera_nextThumbs',camera_thumbs_wrap).css('visibility','visible');
-					var left = pos.left,
-						right = pos.left+($('li.cameracurrent', thumbs).outerWidth());
+					var left = $('li.cameracurrent', thumbs).length ? pos.left : '',
+						right = $('li.cameracurrent', thumbs).length ? pos.left+($('li.cameracurrent', thumbs).outerWidth()) : '';
 					if(left<$('li.cameracurrent', thumbs).outerWidth()) {
 						left = 0;
 					}
@@ -1079,9 +1078,11 @@
 		}
 		
 				
-				
 		var slide = $('.cameraSlide:eq('+slideI+')',target);
-		var slideNext = $('.cameraSlide:eq('+(slideI+1)+')',target).addClass('cameranext').hide();
+		var slideNext = $('.cameraSlide:eq('+(slideI+1)+')',target).addClass('cameranext');
+		if( vis != slideI+1 ) {
+			slideNext.hide();
+		}
 		$('.cameraContent',fakeHover).fadeOut(600);
 		$('.camera_caption',fakeHover).show();
 		
