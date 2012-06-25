@@ -19,6 +19,7 @@
 	list-style: none
 }
 .camera_wrap {
+	direction: ltr;
 	display: none;
 	float: left;
 	position: relative;
@@ -224,7 +225,7 @@
 	margin: 20px 5px;
 	position: relative;
 	text-align: left;
-	text-indent: -9999px;
+	text-indent: 9999px;
 	width: 16px;
 }
 .camera_commands_emboss .camera_pag .camera_pag_ul li {
@@ -328,7 +329,7 @@
 	height: 16px;
 	margin: 20px 5px;
 	position: relative;
-	text-indent: -9999px;
+	text-indent: 9999px;
 	width: 16px;
 }
 .camera_thumbs_cont {
