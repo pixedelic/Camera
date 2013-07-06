@@ -108,7 +108,7 @@
 	}
 
 	$.support.borderRadius = false;
-	$.each(['BorderRadius','MozBorderRadius','WebkitBorderRadius','OBorderRadius','KhtmlBorderRadius'], function() {
+	$.each(['borderRadius','BorderRadius','MozBorderRadius','WebkitBorderRadius','OBorderRadius','KhtmlBorderRadius'], function() {
 		if(document.body.style[this] !== undefined) $.support.borderRadius = true;
 	});
 
