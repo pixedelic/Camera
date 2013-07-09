@@ -1,4 +1,4 @@
-// Camera slideshow v1.3.4 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.4+
+// Camera slideshow v1.4.0 - a jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.9.1+
 // Copyright (c) 2012 by Manuel Masia - www.pixedelic.com
 // Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 ;(function($){$.fn.camera = function(opts, callback) {
@@ -107,6 +107,11 @@
 		}
 	}
 
+	$.support.borderRadius = false;
+	$.each(['borderRadius','BorderRadius','MozBorderRadius','WebkitBorderRadius','OBorderRadius','KhtmlBorderRadius'], function() {
+		if(document.body.style[this] !== undefined) $.support.borderRadius = true;
+	});
+
 	var opts = $.extend({}, defaults, opts);
 	
 	var wrap = $(this).addClass('camera_wrap');
@@ -118,6 +123,7 @@
 		);
 		
 	var fakeHover = $('.camera_fakehover',wrap);
+	var fakeHoverSelector = ('.camera_fakehover',wrap);
 	
 	fakeHover.append(
 		'<div class="camera_target"></div>'
@@ -133,7 +139,7 @@
 		
 	var loader;
 	
-	if(opts.loader=='pie' && $.browser.msie && $.browser.version < 9){
+	if(opts.loader=='pie' && !$.support.borderRadius){
 		loader = 'bar';
 	} else {
 		loader = opts.loader;
@@ -724,12 +730,12 @@
 			$(nextNav,wrap).animate({opacity:0},0);
 			$(commands,wrap).animate({opacity:0},0);
 			if(isMobile()){
-				fakeHover.live('vmouseover',function(){
+				$(document).on('vmouseover',fakeHoverSelector,function(){
 					$(prevNav,wrap).animate({opacity:1},200);
 					$(nextNav,wrap).animate({opacity:1},200);
 					$(commands,wrap).animate({opacity:1},200);
 				});
-				fakeHover.live('vmouseout',function(){
+				$(document).on('vmouseout',fakeHoverSelector,function(){
 					$(prevNav,wrap).delay(500).animate({opacity:0},200);
 					$(nextNav,wrap).delay(500).animate({opacity:0},200);
 					$(commands,wrap).delay(500).animate({opacity:0},200);
@@ -748,7 +754,7 @@
 		}
 		
 	
-		$('.camera_stop',camera_thumbs_wrap).live('click',function(){
+		camera_thumbs_wrap.on('click','.camera_stop',function(){
 			autoAdv = false;
 			elem.addClass('paused');
 			if($('.camera_stop',camera_thumbs_wrap).length){
@@ -764,7 +770,7 @@
 			}
 		});
 	
-		$('.camera_play',camera_thumbs_wrap).live('click',function(){
+		camera_thumbs_wrap.on('click','.camera_play',function(){
 			autoAdv = true;
 			elem.removeClass('paused');
 			if($('.camera_play',camera_thumbs_wrap).length){
