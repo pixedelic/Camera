@@ -132,8 +132,17 @@
 		);
 		
 	var loader;
-	
-	if(opts.loader=='pie' && $.browser.msie && $.browser.version < 9){
+
+    //FIXME this needs to be changed in order to support ie9 or lower
+    //Browser taken out of some Jquery implementations
+    var isMsie = false,
+        versionLessThat9 = false;
+    if($.browser != null){
+        isMsie = $.browser.msie;
+        versionLessThat9 = $.browser.version < 9
+    }
+
+	if(opts.loader=='pie' && isMsie && versionLessThat9){
 		loader = 'bar';
 	} else {
 		loader = opts.loader;
@@ -360,7 +369,7 @@
 		if(!elem.hasClass('paused')){
 			elem.addClass('paused');
 			if($('.camera_stop',camera_thumbs_wrap).length){
-				$('.camera_stop',camera_thumbs_wrap).hide()
+				$('.camera_stop',camera_thumbs_wrap).hide();
 				$('.camera_play',camera_thumbs_wrap).show();
 				if(loader!='none'){
 					$('#'+pieID).hide();
@@ -746,45 +755,47 @@
 				});
 			}
 		}
-		
-	
-		$('.camera_stop',camera_thumbs_wrap).live('click',function(){
-			autoAdv = false;
-			elem.addClass('paused');
-			if($('.camera_stop',camera_thumbs_wrap).length){
-				$('.camera_stop',camera_thumbs_wrap).hide()
-				$('.camera_play',camera_thumbs_wrap).show();
-				if(loader!='none'){
-					$('#'+pieID).hide();
-				}
-			} else {
-				if(loader!='none'){
-					$('#'+pieID).hide();
-				}
-			}
-		});
-	
-		$('.camera_play',camera_thumbs_wrap).live('click',function(){
-			autoAdv = true;
-			elem.removeClass('paused');
-			if($('.camera_play',camera_thumbs_wrap).length){
-				$('.camera_play',camera_thumbs_wrap).hide();
-				$('.camera_stop',camera_thumbs_wrap).show();
-				if(loader!='none'){
-					$('#'+pieID).show();
-				}
-			} else {
-				if(loader!='none'){
-					$('#'+pieID).show();
-				}
-			}
-		});
+
+        if($('.camera_stop',camera_thumbs_wrap).length) {
+            $('.camera_stop', camera_thumbs_wrap).live('click', function () {
+                autoAdv = false;
+                elem.addClass('paused');
+                if ($('.camera_stop', camera_thumbs_wrap).length) {
+                    $('.camera_stop', camera_thumbs_wrap).hide();
+                    $('.camera_play', camera_thumbs_wrap).show();
+                    if (loader != 'none') {
+                        $('#' + pieID).hide();
+                    }
+                } else {
+                    if (loader != 'none') {
+                        $('#' + pieID).hide();
+                    }
+                }
+            });
+        }
+        if($('.camera_play',camera_thumbs_wrap).length) {
+            $('.camera_play', camera_thumbs_wrap).live('click', function () {
+                autoAdv = true;
+                elem.removeClass('paused');
+                if ($('.camera_play', camera_thumbs_wrap).length) {
+                    $('.camera_play', camera_thumbs_wrap).hide();
+                    $('.camera_stop', camera_thumbs_wrap).show();
+                    if (loader != 'none') {
+                        $('#' + pieID).show();
+                    }
+                } else {
+                    if (loader != 'none') {
+                        $('#' + pieID).show();
+                    }
+                }
+            });
+        }
 	
 		if(opts.pauseOnClick==true){
 			$('.camera_target_content',fakeHover).mouseup(function(){
 				autoAdv = false;
 				elem.addClass('paused');
-				$('.camera_stop',camera_thumbs_wrap).hide()
+				$('.camera_stop',camera_thumbs_wrap).hide();
 				$('.camera_play',camera_thumbs_wrap).show();
 				$('#'+pieID).hide();
 			});
