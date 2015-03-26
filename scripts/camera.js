@@ -152,20 +152,6 @@
 			'<div class="camera_bar" style="display:none"></div>'
 			)
 	}
-	
-	if(opts.playPause==true){
-		fakeHover.append(
-        '<div class="camera_commands"></div>'
-		)
-	}
-		
-	if(opts.navigation==true){
-		fakeHover.append(
-			'<div class="camera_prev"><span></span></div>'
-			).append(
-			'<div class="camera_next"><span></span></div>'
-			);
-	}
 		
 	if(opts.thumbnails==true){
 		wrap.append(
@@ -206,9 +192,6 @@
 		content = $('.camera_target_content',wrap),
 		pieContainer = $('.camera_pie',wrap),
 		barContainer = $('.camera_bar',wrap),
-		prevNav = $('.camera_prev',wrap),
-		nextNav = $('.camera_next',wrap),
-		commands = $('.camera_commands',wrap),
 		pagination = $('.camera_pag',wrap),
 		thumbs = $('.camera_thumbs_cont',wrap);	
 
@@ -269,6 +252,29 @@
 	});
 	
 	var amountSlide = allImg.length;
+  
+  if( amountSlide>1 ){
+		
+    // Elements which are required if more than one image is to be shown
+    
+    if(opts.navigation==true){
+      fakeHover.append(
+        '<div class="camera_prev"><span></span></div>'
+        ).append(
+        '<div class="camera_next"><span></span></div>'
+        );
+    }
+	
+    if(opts.playPause==true){
+      fakeHover.append(
+          '<div class="camera_commands"></div>'
+      )
+    }
+  
+  }
+  var prevNav = $('.camera_prev',wrap),
+		  nextNav = $('.camera_next',wrap),
+      commands = $('.camera_commands',wrap);
 
 	$(content).append('<div class="cameraContents" />');
 	var loopMove;
