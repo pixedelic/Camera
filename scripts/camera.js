@@ -91,7 +91,8 @@
 		
 		onStartLoading		: function() {  },	//this callback is invoked when the image on a slide start loading
 		
-		onStartTransition	: function() {  }	//this callback is invoked when the transition effect starts
+		onStartTransition	: function() {  },	//this callback is invoked when the transition effect starts
+		bypassCache		: true //true to bypass browser caching, false to let the browser cache the image and do If-Modified-Since requests
 
     };
 	
@@ -1097,7 +1098,7 @@
 		if(!$('.imgLoaded',slide).length){
 			var imgUrl = allImg[slideI];
 			var imgLoaded = new Image();
-			imgLoaded.src = imgUrl +"?"+ new Date().getTime();
+			imgLoaded.src = (opts.bypassCache) ? imgUrl+"?"+new Date().getTime() : imgUrl;
 			slide.css('visibility','hidden');
 			slide.prepend($(imgLoaded).attr('class','imgLoaded').css('visibility','hidden'));
 			var wT, hT;
@@ -1118,7 +1119,7 @@
 			if( allImg.length > (slideI+1) && !$('.imgLoaded',slideNext).length ){
 				var imgUrl2 = allImg[(slideI+1)];
 				var imgLoaded2 = new Image();
-				imgLoaded2.src = imgUrl2 +"?"+ new Date().getTime();
+				imgLoaded2.src = (opts.bypassCache) ? imgUrl2+"?"+new Date().getTime() : imgUrl2;
 				slideNext.prepend($(imgLoaded2).attr('class','imgLoaded').css('visibility','hidden'));
 				imgLoaded2.onload = function() {
 					wT = imgLoaded2.naturalWidth;
