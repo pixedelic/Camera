@@ -1898,7 +1898,9 @@
 									});
 								} else if(tClass.indexOf("moveFromBottom") != -1) {
 									t.css({'top':h+'px','bottom':'auto'});
-									t.css('visibility','visible').delay((time/lMoveInContent)*(0.1*(ind-1))).animate({'top':pos.top},(time/lMoveInContent)*0.15,easeMove);
+									t.css('visibility','visible').delay((time/lMoveInContent)*(0.1*(ind-1))).animate({'top':pos.top},(time/lMoveInContent)*0.15,easeMove,function(){
+										t.css({top:'auto',bottom:0});
+									});
 								} else if(tClass.indexOf("fadeFromLeft") != -1) {
 									t.animate({opacity:0},0).css({'left':'-'+(w)+'px','right':'auto'});
 									t.css('visibility','visible').delay((time/lMoveInContent)*(0.1*(ind-1))).animate({'left':pos.left,opacity:1},(time/lMoveInContent)*0.15,easeMove);
