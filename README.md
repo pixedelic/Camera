@@ -1,4 +1,5 @@
 # Camera slideshow 
+#Test Remark 1
 A jQuery slideshow with many effects, transitions, easy to customize, using canvas and mobile ready, based on jQuery 1.9.1+
 
 # Requirements
