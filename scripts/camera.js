@@ -103,7 +103,7 @@
 			navigator.userAgent.match(/iPhone/i) ||
 			navigator.userAgent.match(/iPod/i)
 			){
-				return true;
+				return false;
 		}
 	}
 
